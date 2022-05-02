@@ -1,0 +1,77 @@
+# IR Assignment 2
+## Part A
+We have successfully implemented the PageRank Algorithm in this part. 
+The PageRank algorithm was implemented using Python and Numpy. We created the probability transition matrix both with and without random teleportations. 
+In case of random teleportations, we used the probability of teleportations as 0.1.
+
+
+### Running
+It is recommended to use a virtual environment to install the dependencies. Do so using pipenv:
+```
+$ pipenv shell
+```
+Install the dependencies:
+```
+$ pipenv install
+```
+
+To run the code without using random teleportation, do the following:
+```
+$ python pagerank.py
+Number of nodes: 4
+Number of edges: 6
+Mention each edge as a space separated list of two vertices: 
+0 1
+1 0
+1 2
+2 1
+2 3
+3 2
+
+The final probabilty transition matrix will be: 
+[[0.  1.  0.  0. ]
+ [0.5 0.  0.5 0. ]
+ [0.  0.5 0.  0.5]
+ [0.  0.  1.  0. ]]
+Probabilities using Numpy Function: 
+[-1.  -0.5  1.   0.5]
+[[-0.31622777 -0.5         0.31622777 -0.5       ]
+ [ 0.63245553  0.5         0.63245553 -0.5       ]
+ [-0.63245553  0.5         0.63245553  0.5       ]
+ [ 0.31622777 -0.5         0.31622777  0.5       ]]
+[[0.16666667 0.33333333 0.33333333 0.16666667]]
+Probabilities using Power Iteration: 
+[[0.16666794 0.33333206 0.33333206 0.16666794]]
+```
+
+To run the code with random teleportation, use the `--use-random-teleportation` flag while running the file:
+```
+IRIR ❯ python pagerank.py --use-random-teleportation                                                                             main
+Using random teleportation
+Number of nodes: 4
+Number of edges: 6
+Mention each edge as a space separated list of two vertices: 
+0 1
+1 0
+1 2
+2 1
+2 3
+3 2
+
+The final probabilty transition matrix will be: 
+[[0.03333333 0.9        0.03333333 0.03333333]
+ [0.45       0.05       0.45       0.05      ]
+ [0.05       0.45       0.05       0.45      ]
+ [0.03333333 0.03333333 0.9        0.03333333]]
+Probabilities using Numpy Function: 
+[ 1.          0.42182527 -0.82182527 -0.43333333]
+[[-0.33391096 -0.48654992  0.30945578  0.5       ]
+ [-0.62330046 -0.51309763 -0.63579645 -0.5       ]
+ [-0.62330046  0.51309763  0.63579645 -0.5       ]
+ [-0.33391096  0.48654992 -0.30945578  0.5       ]]
+[[0.1744186 0.3255814 0.3255814 0.1744186]]
+Probabilities using Power Iteration: 
+[[0.17441717 0.32558283 0.32558283 0.17441717]]
+```
+
+**Note that all the nodes are zero-indexed. If the number of nodes passed is 4, the maximum value of a node can be 3.**
