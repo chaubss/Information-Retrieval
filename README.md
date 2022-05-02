@@ -97,5 +97,37 @@ $ pipenv install
 To run the code, do the following:
 ```
 python hits.py
+Enter query word: >? pension
+Top 3 authority scores are:
+  Node    Authority Score
+------  -----------------
+     0           0.320012
+     3           0.21121
+    61           0.21121
+Top 3 Hub scores are:
+  Node    Hub Score
+------  -----------
+    10     0.320012
+    75     0.320012
+     0     0.204815
+ List of all scores:
+  Node    Authority Score    Hub Score
+------  -----------------  -----------
+     0           0.320012     0.204815
+     3           0.21121      0
+    10          -0            0.320012
+    75           0.128785     0.320012
+    87           0.128785     0.155162
+    61           0.21121      0
+Authority score sum = 1.0
+Hub score sum = 1.0
+```
 
+To measure the running time, do the following:
+```
+python hits_tca.py
+Enter query word: >? world
+world
+base set size = 82
+0.022000789642333984
 ```
