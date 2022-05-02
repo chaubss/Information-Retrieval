@@ -54,8 +54,6 @@ def get_left_principal_eigenvector(probability_transition_matrix):
     """
     # Get the eigenvalues and eigenvectors of the matrix
     v, V = np.linalg.eig(probability_transition_matrix.T)
-    print(v)
-    print(V)
     left_vec = V[:, 0].T
     left_vec = V[:, v.argmax()]
     left_vec = left_vec / sum(left_vec)
