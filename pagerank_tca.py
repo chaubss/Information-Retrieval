@@ -1,11 +1,10 @@
 import numpy as np
-import sys, getopt
+import time
 
 ALPHA = 0.1
-BREAK_THRESHOLD = 0.0000000001
 
 
-def generate_probability_transition_matrix(nodes_count, edges, use_random_teleportation=False):
+def generate_probability_transition_matrix(nodes_count, edges, use_random_teleportation=True):
     """
     Generate the probability transition matrix for a graph with the given number of nodes and edges.
     Input:
@@ -60,67 +59,34 @@ def get_left_principal_eigenvector(probability_transition_matrix):
     # Return the principal left eigenvector
     return left_vec
 
-
-def get_left_principal_eigenvector_power_iteration(probability_transition_matrix, nodes_count):
-    """
-    Gets the left principal eigenvector of the given probability transition matrix.
-    This uses the power iteration method to obtain the eigenvector.
-    Input:
-        probability_transition_matrix: Probability transition matrix for the graph.
-        nodes_count: Number of nodes in the graph.
-    Output:
-        Left principal eigenvector of the matrix.
-    """
-    # Initialize the vector with 0s
-    first = np.full((1, nodes_count), 1 / nodes_count)
-    prev = first
-    # Set the first element to 1 (we are first at webpage 0)
-    for i in range(1000):
-        # Get the next vector
-        prev = first
-        first = np.dot(first, probability_transition_matrix)
-        sum = np.sum((prev - first) ** 2)
-        if sum < BREAK_THRESHOLD:
-            break
-    # Return the final vector
-    return first
-
 def main():
     """
     Main function.
     """
-    arguments, values = getopt.getopt(sys.argv[1: ], 'r', 'use-random-teleportation')
-    use_random_teleportation = False
-
-    for argument, value in arguments:
-        if argument == '--use-random-teleportation' or argument == '-r':
-            print('Using random teleportation')
-            use_random_teleportation = True
-
     # Get the inputs
-    nodes_count = int(input('Number of nodes: '))
-    edge_count = int(input('Number of edges: '))
-
+    # nodes_count = int(input('Number of nodes: '))
+    # edge_count = int(input('Number of edges: '))
+    nodes_count = int(input())
+    # edge_count = int(input())
+    
     edges = []
+    for i in range(nodes_count - 1):
+        edges.append((i, i + 1))
+        edges.append((i + 1, i))
 
-    # Get the edges
-    print('Mention each edge as a space separated list of two vertices: ')
-    for i in range(edge_count):
-        inp = input()
-        edges.append(tuple([int(edge) for edge in inp.split()]))
+    edge_count = len(edges)
 
+    print('Number of edges:', edge_count)
+
+    start = time.time()
     # Generate the probability transition matrix using the function we defined
     probability_transition_matrix = generate_probability_transition_matrix(
-        nodes_count, edges, use_random_teleportation=use_random_teleportation)
-    
-    print('\nThe final probabilty transition matrix will be: ')
-    print(probability_transition_matrix)
-    # Print the final left principal eigenvectors using the two methods
-    print('Probabilities using Numpy Function: ')
-    print(get_left_principal_eigenvector(probability_transition_matrix))
-    print('Probabilities using Power Iteration: ')
-    print(get_left_principal_eigenvector_power_iteration(probability_transition_matrix, nodes_count))
+        nodes_count, edges)
 
+    # Print the final left principal eigenvectors using the two methods
+    asdfsdf = get_left_principal_eigenvector(probability_transition_matrix)
+    end = time.time()
+    print('Time taken: ', end - start)
 
 if __name__ == '__main__':
     main()
