@@ -121,6 +121,7 @@ def main():
     print(get_left_principal_eigenvector(probability_transition_matrix))
     print('Probabilities using Power Iteration: ')
     ans = get_left_principal_eigenvector_power_iteration(probability_transition_matrix, nodes_count)
+    print(ans)
     prob = []
     for i in range(len(ans[0])):
         prob.append([i, ans[0][i]])
