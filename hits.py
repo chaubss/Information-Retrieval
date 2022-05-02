@@ -51,8 +51,8 @@ def generate_adj_matrix(base_set):
 def generate_hub_authority_scores(adj_matrix):
     """
     Generates the hub and authority scores.
-    It takes the adjacency matrix and then finds the left eigenvector directly using numpy, i.e the
-    eigenvectir corresponding to the largest eigenvalue of (AT)A to find the autority scores,
+    It takes the adjacency matrix and then finds the left eigenvector directly using numpy, i.e. the
+    eigenvector corresponding to the largest eigenvalue, of (AT)A to find the authority scores,
     and of A(AT) to find the hub scores. Here A denotes the adjacency matrix, and AT denotes its transpose.
 
     """
