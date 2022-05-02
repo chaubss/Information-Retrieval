@@ -75,3 +75,27 @@ Probabilities using Power Iteration:
 ```
 
 **Note that all the nodes are zero-indexed. If the number of nodes passed is 4, the maximum value of a node can be 3.**
+
+
+## Part B
+HITS algorithm was implemented on a directed networkx graph with web content, which contains 100 nodes and 256 directed edges.
+The implementation used numpy and python to calculate the authority and hub scores by calculating the left eigenvector, i.e. the eigenvector corresponding to the largest eigenvalue.
+We have used 2 methods to find the eigenvectors – using numpy.linalg.eig(), and using the power iteration method
+
+
+
+### Running
+It is recommended to use a virtual environment to install the dependencies. Do so using pipenv:
+```
+$ pipenv shell
+```
+Install the dependencies:
+```
+$ pipenv install
+```
+
+To run the code, do the following:
+```
+python hits.py
+
+```

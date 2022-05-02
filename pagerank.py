@@ -1,5 +1,6 @@
 import numpy as np
 import sys, getopt
+from tabulate import tabulate
 
 ALPHA = 0.1
 BREAK_THRESHOLD = 0.0000000001
@@ -121,7 +122,17 @@ def main():
     print('Probabilities using Numpy Function: ')
     print(get_left_principal_eigenvector(probability_transition_matrix))
     print('Probabilities using Power Iteration: ')
-    print(get_left_principal_eigenvector_power_iteration(probability_transition_matrix, nodes_count))
+    ans = get_left_principal_eigenvector_power_iteration(probability_transition_matrix, nodes_count)
+    prob = []
+    for i in range(len(ans[0])):
+        prob.append([i, ans[0][i]])
+    top3prob = prob
+    top3prob = sorted(top3prob, key=lambda x: x[1], reverse=True)
+    top3prob = top3prob[0:3]
+    print("Top 3 probabilities are:")
+    print(tabulate(top3prob, headers=["Node", "Probability"]))
+    print("\nList of all probabilities:")
+    print(tabulate(prob, headers=["Node", "Probability"]))
 
 
 if __name__ == '__main__':

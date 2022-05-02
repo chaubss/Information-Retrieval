@@ -1,5 +1,6 @@
 import networkx as nx
 import re
+import time
 
 import numpy as np
 from tabulate import tabulate
@@ -127,6 +128,9 @@ for i in range(len(web_graph.nodes)):
                 postings_list[word] = [i]
             elif postings_list[word][-1] != i:
                 postings_list[word].append(i)
+# for word in postings_list:
+#     if len(postings_list[word])>10:
+#         print(word + str(len(postings_list[word])))
 
 """
 Taking input from user.
@@ -136,40 +140,16 @@ use the adjacency matrix to find authority and hub values.
 Finally we print the obtained authority and hub values in a tabulated format.
 """
 query = input("Enter query word: ")
+start = time.time()
 query = query.split()
 query = query[0]
 rs, bs = generate_sets(query, postings_list)
 adjacency_list = generate_adj_matrix(bs)
 
 authority, hub = generate_hub_authority_scores_power_iteration(adjacency_list)
+end = time.time()
+print(query)
+print("base set size = "+str(len(authority[0])))
+print(end-start)
 base_set_list = list(bs)
-scores = []
-scores_auth = []
-scores_hub = []
-auth_sum = 0
-hub_sum = 0
-for i in range(len(authority[0])):
-    if authority[0][i] <= 0:
-        authority[0][i] = authority[0][i] * -1
-    if hub[0][i] < 0:
-        hub[0][i] = hub[0][i] * -1
-    scores.append([base_set_list[i], authority[0][i], hub[0][i]])
-    scores_auth.append([base_set_list[i], authority[0][i]])
-    scores_hub.append([base_set_list[i], hub[0][i]])
-    auth_sum = auth_sum + authority[0][i]
-    hub_sum = hub_sum + hub[0][i]
 
-scores_auth = sorted(scores_auth, key=lambda x: x[1], reverse=True)
-scores_auth = scores_auth[0:3]
-scores_hub = sorted(scores_hub, key=lambda x: x[1], reverse=True)
-scores_hub = scores_hub[0:3]
-
-print("Top 3 authority scores are:")
-print(tabulate(scores_auth, headers=["Node", "Authority Score"]))
-print("\nTop 3 Hub scores are:")
-print(tabulate(scores_hub, headers=["Node", "Hub Score"]))
-
-print("\n List of all scores:")
-print(tabulate(scores, headers=["Node", "Authority Score", "Hub Score"]))
-print("Authority score sum = " + str(auth_sum))
-print("Hub score sum = " + str(hub_sum))
